@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    .display {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      text-align: right;
+      background: #f9fafb;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    button {
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #e5e7eb;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #d1d5db;
+    }
+    .operator {
+      background-color: #a78bfa;
+      color: white;
+    }
+    .equal {
+      background-color: #10b981;
+      color: white;
+    }
+    .clear {
+      background-color: #ef4444;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+      <h1>Sadiq Calculator</h1>
+
+    <div id="display" class="display">0</div> 
+    <div class="buttons">
+      <button onclick="clearDisplay()" class="clear">C</button>
+      <button onclick="appendOperator('/')" class="operator">/</button>
+      <button onclick="appendOperator('*')" class="operator">*</button>
+      <button onclick="appendOperator('-')" class="operator">-</button>
+
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button onclick="appendOperator('+')" class="operator">+</button>
+
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+      <button onclick="calculateResult()" class="equal" rowspan="2">=</button>
+
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+
+      <button onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+      <button onclick="appendNumber('.')">.</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+    let currentInput = "";
+
+    function appendNumber(number) {
+      if (display.textContent === "" || display.textContent === "Error") {
+        currentInput = number;
+      } else {
+        currentInput += number;
+      }
+      display.textContent = currentInput;
+    }
+
+    function appendOperator(operator) {
+      if (currentInput !== "") {
+        currentInput += operator;
+        display.textContent = currentInput;
+      }
+    }
+
+    function clearDisplay() {
+      currentInput = "";
+      display.textContent = "0";
+    }
+
+    function calculateResult() {
+      try {
+        currentInput = eval(currentInput).toString();
+        display.textContent = currentInput;
+      } catch (error) {
+        display.textContent = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
